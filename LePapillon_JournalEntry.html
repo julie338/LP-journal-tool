@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Papillon — Monthly Journal Entry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #FAF7F2;
+  --white: #FFFDFB;
+  --ink: #1A1612;
+  --ink-light: #4A4440;
+  --ink-faint: #8A8480;
+  --gold: #B8965A;
+  --gold-light: #D4AE78;
+  --gold-pale: #F5EDD8;
+  --border: #E8E0D4;
+  --border-strong: #C8BCB0;
+  --red: #B84040;
+  --green: #2D6B4A;
+  --green-bg: #EBF5EE;
+  --section-bg: #F5F0E8;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.header {
+  background: var(--ink);
+  color: var(--white);
+  padding: 22px 32px 18px;
+  border-bottom: 3px solid var(--gold);
+}
+.header-eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 4px;
+}
+.header h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--white);
+}
+.header-sub {
+  font-size: 12px;
+  color: #A09890;
+  margin-top: 4px;
+}
+
+/* ── Layout ──────────────────────────────────────────────── */
+.main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+/* ── Cards ───────────────────────────────────────────────── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+.card-success { border-color: #A8D5B8; }
+.card-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+.card-sub { font-size: 12px; color: var(--ink-faint); margin-bottom: 18px; }
+
+/* ── Period ──────────────────────────────────────────────── */
+.period-row { display: flex; gap: 14px; align-items: flex-end; flex-wrap: wrap; }
+.field-wrap { display: flex; flex-direction: column; }
+.field-label {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px;
+}
+select, input[type="number"] {
+  padding: 8px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--ink);
+}
+select:focus, input:focus {
+  outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-pale);
+}
+.period-summary { font-size: 13px; color: var(--ink-faint); margin-bottom: 8px; }
+
+/* ── Input Blocks ────────────────────────────────────────── */
+.inputs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.input-block { background: var(--section-bg); border-radius: 8px; padding: 14px 18px; }
+.input-block-title {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-faint); margin-bottom: 12px;
+}
+.input-row { margin-bottom: 10px; }
+.input-row:last-child { margin-bottom: 0; }
+.input-label { font-size: 12px; color: var(--ink-light); margin-bottom: 4px; display: block; }
+.input-label .optional { color: var(--ink-faint); font-style: italic; font-size: 11px; margin-left: 4px; }
+.dollar-wrap {
+  display: flex; align-items: center;
+  border: 1px solid var(--border-strong); border-radius: 6px;
+  background: var(--white); overflow: hidden;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.dollar-wrap:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-pale); }
+.dollar-sign { padding: 8px 8px 8px 12px; font-size: 14px; color: var(--ink-faint); user-select: none; }
+.dollar-wrap input {
+  border: none; border-radius: 0; padding: 8px 12px 8px 4px;
+  flex: 1; min-width: 0; font-variant-numeric: tabular-nums; box-shadow: none;
+}
+.dollar-wrap input:focus { outline: none; border: none; box-shadow: none; }
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.run-row { display: flex; align-items: center; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+.btn-primary {
+  padding: 11px 26px; background: var(--gold); color: var(--white);
+  border: none; border-radius: 8px; font-size: 13px; font-weight: 500;
+  font-family: 'DM Sans', sans-serif; cursor: pointer; letter-spacing: 0.02em;
+  transition: background 0.15s;
+}
+.btn-primary:hover { background: #A0844E; }
+.btn-clear {
+  padding: 11px 18px; background: transparent; color: var(--ink-faint);
+  border: 1px solid var(--border-strong); border-radius: 8px; font-size: 13px;
+  font-family: 'DM Sans', sans-serif; cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-clear:hover { border-color: var(--ink-faint); color: var(--ink-light); }
+.btn-copy {
+  padding: 9px 18px; background: var(--ink); color: var(--white);
+  border: none; border-radius: 7px; font-size: 12px; font-weight: 500;
+  font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.15s;
+}
+.btn-copy:hover { background: #2A2420; }
+
+/* ── Journal Entry Table ─────────────────────────────────── */
+.entry-header {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; margin-bottom: 16px;
+}
+.entry-subtitle { font-size: 12px; color: var(--ink-faint); margin-top: 2px; }
+.success-label { font-size: 14px; font-weight: 500; color: var(--green); margin-bottom: 2px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+th {
+  text-align: left; padding: 0 8px 8px 0;
+  font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-faint);
+  border-bottom: 2px solid var(--border);
+}
+th.num { text-align: right; padding-right: 0; }
+
+td { padding: 9px 8px 9px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; padding-right: 0; }
+td.memo-col { font-size: 12px; color: var(--ink-faint); }
+td.debit-val { color: var(--ink); }
+td.credit-val { color: var(--ink); }
+
+/* Totals row */
+.totals-row td {
+  border-top: 2px solid var(--border-strong);
+  border-bottom: none;
+  padding-top: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Summary Cards ───────────────────────────────────────── */
+.summary-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+.summary-card {
+  background: var(--section-bg);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+.summary-card.balanced { background: var(--green-bg); }
+.summary-card.unbalanced { background: #FDECEA; }
+.summary-card-label {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-faint); margin-bottom: 5px;
+}
+.summary-card-value {
+  font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ink);
+}
+.summary-card.balanced .summary-card-value { color: var(--green); }
+.summary-card.unbalanced .summary-card-value { color: var(--red); }
+
+.hidden { display: none !important; }
+
+/* ── Footer ──────────────────────────────────────────────── */
+.footer { text-align: center; font-size: 11px; color: var(--ink-faint); padding: 20px 0 12px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">Le Papillon</div>
+  <h1>Monthly Journal Entry</h1>
+  <div class="header-sub">Enter report totals — journal entry generated automatically</div>
+</div>
+
+<div class="main">
+
+  <!-- Period -->
+  <div class="card">
+    <div class="period-row">
+      <div class="field-wrap">
+        <span class="field-label">Month</span>
+        <select id="sel-month" onchange="updatePeriod()"></select>
+      </div>
+      <div class="field-wrap">
+        <span class="field-label">Year</span>
+        <select id="sel-year" onchange="updatePeriod()"></select>
+      </div>
+      <div class="period-summary" id="period-summary"></div>
+    </div>
+  </div>
+
+  <!-- Inputs -->
+  <div class="card">
+    <div class="card-title">Enter report totals</div>
+    <div class="card-sub">From your four QuickSale reports for the month</div>
+    <div class="inputs-grid">
+
+      <div class="input-block">
+        <div class="input-block-title">Catering sales summary</div>
+        <div class="input-row">
+          <label class="input-label" for="cat-subtotal">Subtotal</label>
+          <div class="dollar-wrap">
+            <span class="dollar-sign">$</span>
+            <input type="number" id="cat-subtotal" placeholder="0.00" step="0.01" min="0">
+          </div>
+        </div>
+        <div class="input-row">
+          <label class="input-label" for="cat-tax">Tax @ Total</label>
+          <div class="dollar-wrap">
+            <span class="dollar-sign">$</span>
+            <input type="number" id="cat-tax" placeholder="0.00" step="0.01" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="input-block">
+        <div class="input-block-title">Restaurant sales summary</div>
+        <div class="input-row">
+          <label class="input-label" for="rest-shipping">Shipping (service charges)</label>
+          <div class="dollar-wrap">
+            <span class="dollar-sign">$</span>
+            <input type="number" id="rest-shipping" placeholder="0.00" step="0.01" min="0">
+          </div>
+        </div>
+        <div class="input-row">
+          <label class="input-label" for="rest-tax">Tax @ Total</label>
+          <div class="dollar-wrap">
+            <span class="dollar-sign">$</span>
+            <input type="number" id="rest-tax" placeholder="0.00" step="0.01" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="input-block">
+        <div class="input-block-title">Sales by item report</div>
+        <div class="input-row">
+          <label class="input-label" for="gc-sold">
+            Gift certificates sold
+            <span class="optional">— leave blank if none</span>
+          </label>
+          <div class="dollar-wrap">
+            <span class="dollar-sign">$</span>
+            <input type="number" id="gc-sold" placeholder="0.00" step="0.01" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="input-block">
+        <div class="input-block-title">Payments report</div>
+        <div class="input-row">
+          <label class="input-label" for="gc-redeemed">
+            Gift certificates redeemed
+            <span class="optional">— leave blank if none</span>
+          </label>
+          <div class="dollar-wrap">
+            <span class="dollar-sign">$</span>
+            <input type="number" id="gc-redeemed" placeholder="0.00" step="0.01" min="0">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="run-row">
+      <button class="btn-primary" onclick="generate()">Generate journal entry</button>
+      <button class="btn-clear" onclick="clearAll()">Clear</button>
+    </div>
+  </div>
+
+  <!-- Output -->
+  <div class="card card-success hidden" id="entry-card">
+    <div class="entry-header">
+      <div>
+        <div class="success-label" id="entry-title">Journal entry</div>
+        <div class="entry-subtitle">Income reclassification</div>
+      </div>
+      <button class="btn-copy" id="copy-btn" onclick="copyEntry()">Copy entry</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:30%">Account</th>
+          <th class="num" style="width:16%">Debit</th>
+          <th class="num" style="width:16%">Credit</th>
+          <th style="width:38%">Memo</th>
+        </tr>
+      </thead>
+      <tbody id="entry-body"></tbody>
+    </table>
+
+    <div class="summary-cards">
+      <div class="summary-card">
+        <div class="summary-card-label">Total debits</div>
+        <div class="summary-card-value" id="total-debits">—</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-label">Total credits</div>
+        <div class="summary-card-value" id="total-credits">—</div>
+      </div>
+      <div class="summary-card" id="diff-card">
+        <div class="summary-card-label">Difference</div>
+        <div class="summary-card-value" id="difference">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Le Papillon &middot; Internal Tool</div>
+</div>
+
+<script>
+'use strict';
+
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+let rows = [];
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', () => {
+  const now = new Date();
+  const pm = now.getMonth() === 0 ? 11 : now.getMonth() - 1;
+  const py = now.getMonth() === 0 ? now.getFullYear() - 1 : now.getFullYear();
+
+  const sm = document.getElementById('sel-month');
+  MONTHS.forEach((m, i) => {
+    const o = document.createElement('option');
+    o.value = m; o.textContent = m;
+    if (i === pm) o.selected = true;
+    sm.appendChild(o);
+  });
+
+  const sy = document.getElementById('sel-year');
+  [2024,2025,2026,2027,2028].forEach(y => {
+    const o = document.createElement('option');
+    o.value = y; o.textContent = y;
+    if (y === py) o.selected = true;
+    sy.appendChild(o);
+  });
+
+  updatePeriod();
+
+  document.querySelectorAll('input[type="number"]').forEach(el => {
+    el.addEventListener('keydown', e => { if (e.key === 'Enter') generate(); });
+  });
+});
+
+function updatePeriod() {
+  const m = document.getElementById('sel-month').value;
+  const y = document.getElementById('sel-year').value;
+  document.getElementById('period-summary').textContent = 'Entry for ' + m + ' ' + y;
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function val(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+function fmt(n) {
+  return Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function row(account, debit, credit, memo) {
+  return { account, debit: debit || null, credit: credit || null, memo };
+}
+
+function clearAll() {
+  ['cat-subtotal','cat-tax','rest-shipping','rest-tax','gc-sold','gc-redeemed'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('entry-card').classList.add('hidden');
+}
+
+// ── Generate ──────────────────────────────────────────────────────────────────
+
+function generate() {
+  const catSubtotal  = val('cat-subtotal');
+  const catTax       = val('cat-tax');
+  const restShipping = val('rest-shipping');
+  const restTax      = val('rest-tax');
+  const gcSold       = val('gc-sold');
+  const gcRedeemed   = val('gc-redeemed');
+  const totalTax     = restTax + catTax;
+
+  rows = [];
+
+  // 1. Catering sales reclassification
+  rows.push(row('Restaurant Income',          catSubtotal, null,        'Reclassify catering sales'));
+  rows.push(row('Catering Income',            null,        catSubtotal, 'Reclassify catering sales'));
+
+  // 2. Sales tax — combined DR, separate CRs
+  rows.push(row('Restaurant Income',          totalTax,    null,        'All sales tax'));
+  rows.push(row('Sales Tax Payable',          null,        catTax,      'Catering sales tax'));
+  rows.push(row('Sales Tax Payable',          null,        restTax,     'Restaurant sales tax'));
+
+  // 3. Service charges / shipping
+  if (restShipping > 0) {
+    rows.push(row('Restaurant Income',        restShipping, null,        'All service charges'));
+    rows.push(row('Service Charges / Shipping', null,      restShipping, 'All service charges'));
+  }
+
+  // 4. Gift certificates sold
+  if (gcSold > 0) {
+    rows.push(row('Restaurant Income',         gcSold, null,   'Gift certificates sold'));
+    rows.push(row('Gift Certificate Payable',  null,   gcSold, 'Gift certificates sold'));
+  }
+
+  // 5. Gift certificates redeemed
+  if (gcRedeemed > 0) {
+    rows.push(row('Gift Certificate Payable',  gcRedeemed, null,       'Gift certificates redeemed'));
+    rows.push(row('Restaurant Income',         null,       gcRedeemed, 'Gift certificates redeemed'));
+  }
+
+  renderEntry();
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+
+function renderEntry() {
+  const month = document.getElementById('sel-month').value;
+  const year  = document.getElementById('sel-year').value;
+
+  document.getElementById('entry-title').textContent =
+    '\u2713 Journal entry \u2014 ' + month + ' ' + year;
+
+  const totalDebits  = rows.reduce((s, r) => s + (r.debit  || 0), 0);
+  const totalCredits = rows.reduce((s, r) => s + (r.credit || 0), 0);
+  const difference   = Math.abs(totalDebits - totalCredits);
+  const isBalanced   = difference < 0.005;
+
+  // Table rows
+  const bodyRows = rows.map(r =>
+    '<tr>' +
+    '<td>' + r.account + '</td>' +
+    '<td class="num debit-val">'  + (r.debit  ? '$' + fmt(r.debit)  : '') + '</td>' +
+    '<td class="num credit-val">' + (r.credit ? '$' + fmt(r.credit) : '') + '</td>' +
+    '<td class="memo-col">' + r.memo + '</td>' +
+    '</tr>'
+  ).join('');
+
+  // Totals row
+  const totalsRow =
+    '<tr class="totals-row">' +
+    '<td>Total</td>' +
+    '<td class="num">$' + fmt(totalDebits)  + '</td>' +
+    '<td class="num">$' + fmt(totalCredits) + '</td>' +
+    '<td></td>' +
+    '</tr>';
+
+  document.getElementById('entry-body').innerHTML = bodyRows + totalsRow;
+
+  // Summary cards
+  document.getElementById('total-debits').textContent  = '$' + fmt(totalDebits);
+  document.getElementById('total-credits').textContent = '$' + fmt(totalCredits);
+  document.getElementById('difference').textContent    = '$' + fmt(difference);
+
+  const diffCard = document.getElementById('diff-card');
+  diffCard.className = 'summary-card ' + (isBalanced ? 'balanced' : 'unbalanced');
+
+  const card = document.getElementById('entry-card');
+  card.classList.remove('hidden');
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── Copy ──────────────────────────────────────────────────────────────────────
+
+function copyEntry() {
+  const month = document.getElementById('sel-month').value;
+  const year  = document.getElementById('sel-year').value;
+  const totalDebits  = rows.reduce((s, r) => s + (r.debit  || 0), 0);
+  const totalCredits = rows.reduce((s, r) => s + (r.credit || 0), 0);
+
+  const pad  = (s, w) => (s + ' '.repeat(w)).slice(0, w);
+  const ruler = '\u2500'.repeat(110);
+
+  const text = [
+    'Le Papillon \u2014 Reclassification Journal Entry',
+    'Period: ' + month + ' ' + year,
+    '',
+    pad('Account', 34) + pad('Debit', 16) + pad('Credit', 16) + 'Memo',
+    ruler,
+    ...rows.map(r =>
+      pad(r.account, 34) +
+      pad(r.debit  ? '$' + fmt(r.debit)  : '', 16) +
+      pad(r.credit ? '$' + fmt(r.credit) : '', 16) +
+      r.memo
+    ),
+    ruler,
+    pad('Total', 34) + pad('$' + fmt(totalDebits), 16) + pad('$' + fmt(totalCredits), 16),
+    '',
+    'Total debits: $' + fmt(totalDebits) + '   Total credits: $' + fmt(totalCredits) +
+      '   Difference: $' + fmt(Math.abs(totalDebits - totalCredits)),
+  ].join('\n');
+
+  const btn = document.getElementById('copy-btn');
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      btn.textContent = '\u2713 Copied!';
+      setTimeout(() => { btn.textContent = 'Copy entry'; }, 2000);
+    })
+    .catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.cssText = 'position:fixed;opacity:0;';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); btn.textContent = '\u2713 Copied!'; }
+      catch (e) { btn.textContent = 'Select & copy manually'; }
+      document.body.removeChild(ta);
+      setTimeout(() => { btn.textContent = 'Copy entry'; }, 2000);
+    });
+}
+</script>
+</body>
+</html>
